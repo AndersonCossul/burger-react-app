@@ -5,9 +5,9 @@ const menu = (props) => (
 	<div
 		className={classes.DrawerToggle}
 		onClick={props.clicked}>
-		<hr/>
-		<hr/>
-		<hr/>
+		<div></div>
+		<div></div>
+		<div></div>
 	</div>
 )
 
