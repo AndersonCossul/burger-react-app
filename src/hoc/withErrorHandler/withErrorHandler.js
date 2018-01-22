@@ -8,7 +8,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error: null
         }
 
-        componentDidMount () {
+        componentWillMount () {
             // setup axios listener
 
             // clearing errors on new requests
