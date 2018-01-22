@@ -5,8 +5,8 @@ import Backdrop from '../Backdrop/Backdrop'
 
 class Modal extends Component {
 	shouldComponentUpdate (nextProps, nextState) {
-		// prevent updating the modal when it's not even open
-		return nextProps.show !== this.props.show
+		// prevent updating the modal when it's not even open or updating if the summary changed to a spinner
+		return nextProps.show !== this.props.show || nextProps.children != this.props.children
 	}
 
 	render () {
