@@ -12,15 +12,21 @@ const withErrorHandler = (WrappedComponent, axios) => {
             // setup axios listener
 
             // clearing errors on new requests
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({error: null})
                 return req
             })
 
             // changing state in case there is an error with the response
-            axios.interceptors.response.use(res => res, error => {
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => {
                 this.setState({error: error})
             })
+        }
+
+        componentWillUnmoun () {
+            // clean up interceptors
+            axios.interceptors.request.eject(this.reqInterceptor)
+            axios.interceptors.request.eject(this.resInterceptor)
         }
 
         errorConfirmedHandler = () => {
