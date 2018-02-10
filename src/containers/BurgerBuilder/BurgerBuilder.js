@@ -101,29 +101,30 @@ class BurgerBuilder extends Component {
 	}
 
 	purchaseContinueHandler = () => {
-		// toggle loading spinner
-		this.setState({ loading: true })
-
-		// firebase
-		const order = {
-			ingredients: this.state.ingredients,
-			price: this.state.totalPrice, // in a real app, would probably make the server calculate the price, just in case
-			// forced for now
-			customer: {
-				name: 'Anderson Cossul',
-				address: {
-					street: 'Confidential',
-					zipCode: '555555',
-					city: 'Porto Alegre',
-					country: 'Brazil'
-				},
-				email: 'anderson_cossul@hotmail.com'
-			},
-			deliverMethod: 'fastest'
-		}
-		axios.post('/orders.json', order)
-			.then((response) => this.setState({loading: false, purchasing: false}))
-			.catch((error) => this.setState({loading: false, purchasing: false}))
+		// // toggle loading spinner
+		// this.setState({ loading: true })
+    //
+		// // firebase
+		// const order = {
+		// 	ingredients: this.state.ingredients,
+		// 	price: this.state.totalPrice, // in a real app, would probably make the server calculate the price, just in case
+		// 	// forced for now
+		// 	customer: {
+		// 		name: 'Anderson Cossul',
+		// 		address: {
+		// 			street: 'Confidential',
+		// 			zipCode: '555555',
+		// 			city: 'Porto Alegre',
+		// 			country: 'Brazil'
+		// 		},
+		// 		email: 'anderson_cossul@hotmail.com'
+		// 	},
+		// 	deliverMethod: 'fastest'
+		// }
+		// axios.post('/orders.json', order)
+		// 	.then((response) => this.setState({loading: false, purchasing: false}))
+		// 	.catch((error) => this.setState({loading: false, purchasing: false}))
+		this.props.history.push('/checkout')
 	}
 
 	render () {
@@ -158,7 +159,7 @@ class BurgerBuilder extends Component {
 						ingredients={this.state.ingredients}
 						purchaseCanceled={this.purchaseCancelHandler}
 						purchaseContinued={this.purchaseContinueHandler}
-						totalPrice={this.state.totalPrice}/> 
+						totalPrice={this.state.totalPrice}/>
 		}
 
 		if (this.state.loading) {
