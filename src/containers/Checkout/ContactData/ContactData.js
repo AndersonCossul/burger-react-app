@@ -16,7 +16,6 @@ class ContactData extends Component {
   }
 
   orderHandler = () => {
-    console.log(this.props.ingredients)
     // toggle loading spinner
 		this.setState({ loading: true })
 
