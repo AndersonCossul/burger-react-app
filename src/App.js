@@ -10,7 +10,7 @@ class App extends Component {
       <BrowserRouter>
         <Layout>
           <Route path="/" exact component={BurgerBuilder} />
-          <Route path="/checkout" exact component={Checkout} />
+          <Route path="/checkout" component={Checkout} />
         </Layout>
       </BrowserRouter>
     );
