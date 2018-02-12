@@ -10,7 +10,7 @@ class Orders extends Component {
   }
 
   componentDidMount () {
-    axios.get('/order.json')
+    axios.get('/orders.json')
       .then(response => {
         // here we'll get json objects but we want an array, so that's why it's being formatted
         const formattedOrders = []
@@ -30,8 +30,14 @@ class Orders extends Component {
   render () {
     return (
       <div>
-        <Order />
-        <Order />
+        {
+          this.state.orders.map(order => (
+            <Order
+              key={order.id}
+              ingredients={order.ingredients}
+              price={order.price}/>
+          ))
+        }
       </div>
     )
   }
