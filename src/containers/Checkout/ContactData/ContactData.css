@@ -8,18 +8,6 @@
   box-sizing: border-box;
 }
 
-.ContactData input {
-  display: block;
-  margin-top: 10px;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  border: 1px solid #ddd;
-  color: #585858;
-  border-radius: 25px;
-  padding: 5px 10px;
-  outline: none;
-}
-
 @media(min-width: 600px) {
   .ContactData {
     width: 500px;
