@@ -12,7 +12,6 @@ import axios from '../../axios-orders'
 
 class BurgerBuilder extends Component {
 	state = {
-		purchasable: false, // turns on the order button on true
 		purchasing: false, // order button was clicked and modal should be open
 		loading: false, // controls the spinner
 		error: null
@@ -28,18 +27,15 @@ class BurgerBuilder extends Component {
 		// 	})
 	}
 
-	updatePurchaseState (ingredients) {
-		const sum = Object.keys(ingredients)
+	updatePurchaseState () {
+		const sum = Object.keys(this.props.ingredients)
 			.map(ingredientKey => {
-				return ingredients[ingredientKey]
+				return this.props.ingredients[ingredientKey]
 			})
 			.reduce((sum, el) => {
 				return sum + el
 			}, 0)
-
-		this.setState({
-			purchasable: sum > 0
-		})
+		return sum > 0
 	}
 
 	purchaseHandler = () => {
@@ -88,7 +84,7 @@ class BurgerBuilder extends Component {
 					ingredientAdded={this.props.onIngredientAdded}
 					ingredientRemoved={this.props.onIngredientRemoved}
 					disabled={disabledInfo}
-					purchasable={this.state.purchasable}
+					purchasable={this.updatePurchaseState()}
 					price={this.props.totalPrice}
 					ordered={this.purchaseHandler}/>
 				</Auxi>
