@@ -26,13 +26,13 @@ class BurgerBuilder extends Component {
 	}
 
 	componentDidMount = () => {
-		axios.get('/ingredients.json')
-			.then(response => {
-				this.setState({ingredients: response.data})
-			})
-			.catch(error => {
-				this.setState({error: <p>Ingredients can't be loaded</p>})
-			})
+		// axios.get('/ingredients.json')
+		// 	.then(response => {
+		// 		this.setState({ingredients: response.data})
+		// 	})
+		// 	.catch(error => {
+		// 		this.setState({error: <p>Ingredients can't be loaded</p>})
+		// 	})
 	}
 
 	updatePurchaseState (ingredients) {
