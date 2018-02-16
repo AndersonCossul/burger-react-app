@@ -2,5 +2,5 @@ export {
   initIngredients,
   addIngredient,
   removeIngredient
-} from './BurgerBuilder/BurgerBuilder'
-export {} from './Order/Order'
+} from './creators/BurgerBuilder'
+export {} from './creators/Order'

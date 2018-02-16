@@ -31,7 +31,13 @@ const reducer = (state = initialState, action) => {
 const setIngredients = (state, action) => {
   return {
     ...state,
-    ingredients: action.ingredients,
+    ingredients: {
+      // manually setting one by one here to prevent the order
+      salad: action.ingredients.salad,
+      bacon: action.ingredients.bacon,
+      cheese: action.ingredients.cheese,
+      meat: action.ingredients.meat
+    },
     error: false
   }
 }
