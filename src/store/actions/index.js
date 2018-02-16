@@ -3,4 +3,6 @@ export {
   addIngredient,
   removeIngredient
 } from './creators/BurgerBuilder'
-export {} from './creators/Order'
+export {
+  purchaseBurgerStart
+} from './creators/Order'
