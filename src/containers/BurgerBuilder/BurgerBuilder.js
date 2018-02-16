@@ -2,19 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions/'
 import Auxi from '../../hoc/Auxi/Auxi'
+import axios from '../../axios-orders'
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
-import axios from '../../axios-orders'
 
 class BurgerBuilder extends Component {
 	state = {
 		purchasing: false, // order button was clicked and modal should be open
-		loading: false, // controls the spinner
-		error: null
 	}
 
 	componentDidMount = () => {
@@ -56,7 +54,7 @@ class BurgerBuilder extends Component {
 
 		// nothing and spinning by default
 		let orderSummary = null
-		let burger = this.state.error ? this.state.error : <Spinner/>
+		let burger = this.props.error ? this.props.error : <Spinner/>
 
 		if (this.props.ingredients) {
 			burger = (
@@ -79,11 +77,6 @@ class BurgerBuilder extends Component {
 						totalPrice={this.props.totalPrice}/>
 		}
 
-		if (this.state.loading) {
-			// on submitting
-			orderSummary = <Spinner/>
-		}
-
 		return (
 			<Auxi>
 				<Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
@@ -98,7 +91,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
 	return {
 		ingredients: state.ingredients,
-		totalPrice: state.totalPrice
+		totalPrice: state.totalPrice,
+		error: state.error
 	}
 }
 
