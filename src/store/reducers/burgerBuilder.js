@@ -15,26 +15,53 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actions.SET_INGREDIENTS:
+      return setIngredients(state, action)
+    case actions.FETCH_INGREDIENTS_FAILED:
+      return fetchIngredientsFailed(state, action)
     case actions.ADD_INGREDIENT:
-      return {
-        ...state,
-        ingredients: {
-          ...state.ingredients,
-          [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-        },
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
-      }
+      return addIngredient(state, action)
     case actions.REMOVE_INGREDIENT:
-      return {
-        ...state,
-        ingredients: {
-          ...state.ingredients,
-          [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-        },
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
-      }
+      return removeIngredient(state, action)
     default:
       return state
+  }
+}
+
+const setIngredients = (state, action) => {
+  return {
+    ...state,
+    ingredients: action.ingredients,
+    error: false
+  }
+}
+
+const fetchIngredientsFailed = (state, action) => {
+  return {
+    ...state,
+    error: true
+  }
+}
+
+const addIngredient = (state, action) => {
+  return {
+    ...state,
+    ingredients: {
+      ...state.ingredients,
+      [action.ingredientName]: state.ingredients[action.ingredientName] + 1
+    },
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+  }
+}
+
+const removeIngredient = (state, action) => {
+  return {
+    ...state,
+    ingredients: {
+      ...state.ingredients,
+      [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+    },
+    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
   }
 }
 
