@@ -4,5 +4,5 @@ export {
   removeIngredient
 } from './creators/BurgerBuilder'
 export {
-  purchaseBurgerStart
+  purchaseBurger
 } from './creators/Order'
