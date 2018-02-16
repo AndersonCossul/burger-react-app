@@ -1,4 +1,5 @@
 export {
+  initIngredients,
   addIngredient,
   removeIngredient
 } from './BurgerBuilder/BurgerBuilder'

@@ -1,11 +1,11 @@
 import * as actions from '../actions'
 import axios from '../../../axios-orders'
 
-const initIngredients = () => {
+export const initIngredients = () => {
   return dispatch => {
     axios.get('/ingredients.json')
 			.then(response => {
-				dispatch(setIngredients({ingredients: response.data}))
+				dispatch(setIngredients(response.data))
 			})
 			.catch(error => {
 				dispatch(fetchIngredientsFailed())
