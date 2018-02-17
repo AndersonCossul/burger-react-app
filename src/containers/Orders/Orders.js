@@ -13,7 +13,7 @@ class Orders extends Component {
   }
 
   onFetchOrders = () => {
-    this.props.fetchOrders(this.props.token)
+    this.props.fetchOrders(this.props.token, this.props.userId)
   }
 
   onDeleteOrder = (orderId) => {
@@ -64,13 +64,14 @@ const mapStateToProps = state => {
     orders: state.order.orders,
     loading: state.order.loading,
     error: state.order.error,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: (token) => dispatch(actions.fetchOrders(token)),
+    fetchOrders: (token, userId) => dispatch(actions.fetchOrders(token, userId)),
     deleteOrder: (orderId, token) => dispatch(actions.deleteOrder(orderId, token))
   }
 }
