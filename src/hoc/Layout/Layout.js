@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Auxi from '../Auxi/Auxi'
 import classes from './Layout.css'
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
@@ -10,22 +12,24 @@ class Layout extends Component {
 	}
 
 	sideDrawerClosedHandler = () => {
-		this.setState({showSideDrawer: false})
+		this.setState({ showSideDrawer: false })
 	}
 
 	sideDrawerToggleHandler = () => {
 		this.setState((prevState) => {
-			return {showSideDrawer: !prevState.showSideDrawer}
+			return { showSideDrawer: !prevState.showSideDrawer }
 		})
 	}
 
-	render () {
+	render() {
 		return (
 			<Auxi>
-				<Toolbar drawerToggleClicked={this.sideDrawerToggleHandler}/>
+				<Toolbar
+					drawerToggleClicked={this.sideDrawerToggleHandler}
+					isAuthenticated={this.props.isAuthenticated} />
 				<SideDrawer
 					show={this.state.showSideDrawer}
-					closed={this.sideDrawerClosedHandler}/>
+					closed={this.sideDrawerClosedHandler} />
 				<main className={classes.Content}>
 					{this.props.children}
 				</main>
@@ -34,4 +38,10 @@ class Layout extends Component {
 	}
 }
 
-export default Layout
+const mapStateToProps = state => {
+	return {
+		isAuthenticated: state.auth.token !== null
+	}
+}
+
+export default withRouter(connect(mapStateToProps)(Layout))
