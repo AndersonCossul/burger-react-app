@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+.Title {
+  color: #703b09;
+  font-weight: bold;
+}
+
 @media (min-width: 600px) {
   .Auth {
     width: 500px;
