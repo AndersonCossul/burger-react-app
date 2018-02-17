@@ -9,14 +9,17 @@ export const fetchOrdersStart = () => {
 
 export const fetchOrders = () => {
   return dispatch => {
+    dispatch(fetchOrdersStart())
     axios.get('/orders.json')
       .then(response => {
         const formattedOrders = []
-        for (let key in response.data) {
-          formattedOrders.push({
-            id: key,
-            ...response.data[key]
-          })
+        if (response) {
+          for (let key in response.data) {
+            formattedOrders.push({
+              id: key,
+              ...response.data[key]
+            })
+          }
         }
         dispatch(fetchOrdersSuccess(formattedOrders))
       })

@@ -8,6 +8,5 @@ export {
   purchaseBurger
 } from './creators/OrderPurchase'
 export {
-  fetchOrdersStart,
   fetchOrders
 } from './creators/Order'
