@@ -10,16 +10,16 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
 	state = {
 		purchasing: false, // order button was clicked and modal should be open
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		this.props.onInitIngredients()
 	}
 
-	updatePurchaseState () {
+	updatePurchaseState() {
 		const sum = Object.keys(this.props.ingredients)
 			.map(ingredientKey => {
 				return this.props.ingredients[ingredientKey]
@@ -32,7 +32,7 @@ class BurgerBuilder extends Component {
 
 	purchaseHandler = () => {
 		if (this.props.isAuthenticated) {
-			this.setState({purchasing: true}) // opens modal
+			this.setState({ purchasing: true }) // opens modal
 		} else {
 			this.props.setAuthRedirectPath('/checkout') // configure the route to go after user logges in
 			this.props.history.push('/login') // redirect him to the login page
@@ -40,7 +40,7 @@ class BurgerBuilder extends Component {
 	}
 
 	purchaseCancelHandler = () => {
-		this.setState({purchasing: false})
+		this.setState({ purchasing: false })
 	}
 
 	purchaseContinueHandler = () => {
@@ -49,7 +49,7 @@ class BurgerBuilder extends Component {
 		this.props.history.push('/checkout')
 	}
 
-	render () {
+	render() {
 		const disabledInfo = {
 			...this.props.ingredients
 		}
@@ -61,28 +61,28 @@ class BurgerBuilder extends Component {
 
 		// nothing and spinning by default
 		let orderSummary = null
-		let burger = this.props.error ? <p>Ingredients couldn't be fetched!</p> : <Spinner/>
+		let burger = this.props.error ? <p>Ingredients couldn't be fetched!</p> : <Spinner />
 
 		if (this.props.ingredients) {
 			burger = (
 				<Auxi>
-				<Burger ingredients={this.props.ingredients}/>
-				<BuildControls
-					ingredientAdded={this.props.onIngredientAdded}
-					ingredientRemoved={this.props.onIngredientRemoved}
-					disabled={disabledInfo}
-					purchasable={this.updatePurchaseState()}
-					price={this.props.totalPrice}
-					ordered={this.purchaseHandler}
-					isAuthenticated={this.props.isAuthenticated}/>
+					<Burger ingredients={this.props.ingredients} />
+					<BuildControls
+						ingredientAdded={this.props.onIngredientAdded}
+						ingredientRemoved={this.props.onIngredientRemoved}
+						disabled={disabledInfo}
+						purchasable={this.updatePurchaseState()}
+						price={this.props.totalPrice}
+						ordered={this.purchaseHandler}
+						isAuthenticated={this.props.isAuthenticated} />
 				</Auxi>
 			)
 
 			orderSummary = <OrderSummary
-						ingredients={this.props.ingredients}
-						purchaseCanceled={this.purchaseCancelHandler}
-						purchaseContinued={this.purchaseContinueHandler}
-						totalPrice={this.props.totalPrice}/>
+				ingredients={this.props.ingredients}
+				purchaseCanceled={this.purchaseCancelHandler}
+				purchaseContinued={this.purchaseContinueHandler}
+				totalPrice={this.props.totalPrice} />
 		}
 
 		return (
