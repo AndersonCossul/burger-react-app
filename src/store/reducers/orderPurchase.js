@@ -2,7 +2,8 @@ import * as actions from '../actions/actions'
 
 const initialState = {
   loading: false,
-  purchased: false
+  purchased: false,
+  error: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -45,7 +46,8 @@ const purchaseBurgerSuccess = (state, action) => {
 const purchaseBurgerFail = (state, action) => {
   return {
     ...state,
-    loading: false
+    loading: false,
+    error: action.error
   }
 }
 

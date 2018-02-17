@@ -13,10 +13,10 @@ export const purchaseBurgerStart = () => {
   }
 }
 
-export const purchaseBurger = (order) => {
+export const purchaseBurger = (order, token) => {
   return dispatch => {
     dispatch(purchaseBurgerStart()) // will dispatch action to start the proccess and set loading to true
-    axios.post('/orders.json', order)
+    axios.post('/orders.json?auth=' + token, order)
       .then(response => {
         dispatch(resetIngredients())
         dispatch(resetTotalPrice())
