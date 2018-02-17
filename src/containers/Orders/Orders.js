@@ -10,21 +10,7 @@ class Orders extends Component {
   }
 
   componentDidMount () {
-    axios.get('/orders.json')
-      .then(response => {
-        // here we'll get json objects but we want an array, so that's why it's being formatted
-        const formattedOrders = []
-        for (let key in response.data) {
-          formattedOrders.push({
-            id: key,
-            ...response.data[key]
-          })
-        }
-        this.setState({orders: formattedOrders, loading: false})
-      })
-      .catch(error => {
-        this.setState({loading: false})
-      })
+    
   }
 
   render () {

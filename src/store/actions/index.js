@@ -6,4 +6,8 @@ export {
 export {
   purchaseInit,
   purchaseBurger
+} from './creators/OrderPurchase'
+export {
+  fetchOrdersStart,
+  fetchOrders
 } from './creators/Order'

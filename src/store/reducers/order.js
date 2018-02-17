@@ -3,54 +3,42 @@ import * as actions from '../actions/actions'
 const initialState = {
   orders: [],
   loading: false,
-  purchased: false
+  error: null
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.PURCHASE_INIT:
-      return purchaseInit(state)
-    case actions.PURCHASE_BURGER_START:
-      return purchaseBurgerStart(state)
-    case actions.PURCHASE_BURGER_SUCCESS:
-      return purchaseBurgerSuccess(state, action)
-    case actions.PURCHASE_BURGER_FAIL:
-      return purchaseBurgerFail(state, action)
+    case actions.FETCH_ORDERS_START:
+      return fetchOrdersStart(state)
+    case actions.FETCH_ORDERS_SUCCESS:
+      return fetchOrdersSuccess(state, action)
+    case actions.FETCH_ORDERS_FAIL:
+      return fetchOrdersFail(state, action)
     default:
       return state
   }
 }
 
-const purchaseInit = state => {
-  return {
-    ...state,
-    purchased: false
-  }
-}
-
-const purchaseBurgerStart = state => {
+const fetchOrdersStart = state => {
   return {
     ...state,
     loading: true
   }
 }
 
-const purchaseBurgerSuccess = (state, action) => {
+const fetchOrdersSuccess = (state, action) => {
   return {
     ...state,
     loading: false,
-    orders: state.orders.concat({
-      ...action.order,
-      id: action.id
-    }),
-    purchased: true
+    orders: action.orders
   }
 }
 
-const purchaseBurgerFail = (state, action) => {
+const fetchOrdersFail = (state, action) => {
   return {
     ...state,
-    loading: false
+    loading: false,
+    error: action.error
   }
 }
 
