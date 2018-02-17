@@ -42,6 +42,12 @@ class Auth extends Component {
     isLoginForm: true
   }
 
+  componentDidMount() {
+    if (!this.props.isBurgerBeingBuilt) {
+      this.props.setAuthRedirectPath('/') // change the url on which to redirect after logging in
+    }
+  }
+
   checkValidity(value, rules) {
     let isValid = true
     if (!rules) {
@@ -147,7 +153,7 @@ class Auth extends Component {
 
     let alreadyLoggedInRedirect = null
     if (this.props.isAlreadyLoggedIn) {
-      alreadyLoggedInRedirect = <Redirect to="/" />
+      alreadyLoggedInRedirect = <Redirect to={this.props.redirectWhenLoggedPath} />
     }
 
     return (
@@ -169,6 +175,8 @@ class Auth extends Component {
 const mapStateToProps = state => {
   return {
     isAlreadyLoggedIn: state.auth.token !== null,
+    redirectWhenLoggedPath: state.auth.redirectWhenLoggedPath,
+    isBurgerBeingBuilt: state.burgerBuilder.building,
     loading: state.auth.loading,
     error: state.auth.error
   }
@@ -176,7 +184,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    auth: (email, password, isLoginForm) => dispatch(actions.auth(email, password, isLoginForm))
+    auth: (email, password, isLoginForm) => dispatch(actions.auth(email, password, isLoginForm)),
+    setAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
   }
 }
 

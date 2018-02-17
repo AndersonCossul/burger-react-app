@@ -26,6 +26,8 @@ export const auth = (email, password, isLoginForm) => {
         const userId = response.data.localId
         dispatch(authSuccess(idToken, userId))
         dispatch(checkAuthTimeout(response.data.expiresIn))
+        dispatch(resetIngredients())
+        dispatch(resetTotalPrice())
       })
       .catch(error => {
         dispatch(authFail(error.response.data.error))
@@ -57,7 +59,34 @@ export const checkAuthTimeout = (expirationTime) => {
 }
 
 export const logout = () => {
+  return dispatch => {
+    dispatch(resetIngredients())
+    dispatch(resetTotalPrice())
+    dispatch(logoutAction())
+  }
+}
+
+export const logoutAction = () => {
   return {
     type: actions.AUTH_LOGOUT
+  }
+}
+
+export const setAuthRedirectPath = path => {
+  return {
+    type: actions.SET_AUTH_REDIRECT_PATH,
+    path: path
+  }
+}
+
+export const resetTotalPrice = () => {
+  return {
+    type: actions.RESET_TOTAL_PRICE
+  }
+}
+
+export const resetIngredients = () => {
+  return {
+    type: actions.RESET_INGREDIENTS
   }
 }
