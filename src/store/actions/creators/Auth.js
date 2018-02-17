@@ -24,9 +24,14 @@ export const auth = (email, password, isLoginForm) => {
       .then(response => {
         const idToken = response.data.idToken
         const userId = response.data.localId
+        const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000)
+
+        localStorage.setItem('token', response.data.idToken)
+        localStorage.setItem('expirationDate', expirationDate)
+        localStorage.setItem('userId', userId)
+        
         dispatch(authSuccess(idToken, userId))
         dispatch(checkAuthTimeout(response.data.expiresIn))
-        dispatch(resetBurger())
       })
       .catch(error => {
         dispatch(authFail(error.response.data.error))
@@ -58,6 +63,10 @@ export const checkAuthTimeout = (expirationTime) => {
 }
 
 export const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('expirationDate')
+  localStorage.removeItem('userId')
+
   return dispatch => {
     dispatch(resetBurger())
     dispatch(logoutAction())
@@ -80,5 +89,24 @@ export const setAuthRedirectPath = path => {
 export const resetBurger = () => {
   return {
     type: actions.RESET_BURGER
+  }
+}
+
+export const tryAutoLogin = () => {
+  return dispatch => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      dispatch(logout())
+    } else {
+      const expirationDate = new Date(localStorage.getItem('expirationDate'))
+      if (expirationDate > new Date()) {
+        const userId = localStorage.getItem('userId')
+        dispatch(authSuccess(token, userId))
+        const newExpirationDate = (expirationDate.getTime() - new Date().getTime()) / 1000
+        dispatch(checkAuthTimeout(newExpirationDate))
+      } else {
+        dispatch(logout())
+      }
+    }
   }
 }

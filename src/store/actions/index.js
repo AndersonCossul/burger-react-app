@@ -17,5 +17,6 @@ export {
 export {
   auth,
   logout,
-  setAuthRedirectPath
+  setAuthRedirectPath,
+  tryAutoLogin
 } from './creators/Auth'

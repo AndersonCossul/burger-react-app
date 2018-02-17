@@ -43,7 +43,7 @@ class Auth extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.isBurgerBeingBuilt) {
+    if (!this.props.isBurgerBeingBuilt && this.props.redirectWhenLoggedPath !== '/') {
       this.props.setAuthRedirectPath('/') // change the url on which to redirect after logging in
     }
   }
