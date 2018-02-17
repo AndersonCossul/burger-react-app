@@ -7,7 +7,7 @@ export const authStart = () => {
   }
 }
 
-export const auth = (email, password, isRegisterForm) => {
+export const auth = (email, password, isLoginForm) => {
   return dispatch => {
     dispatch(authStart())
     const authData = {
@@ -16,7 +16,7 @@ export const auth = (email, password, isRegisterForm) => {
       returnSecureToken: true
     }
     let apiURL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyALSX-3oHI0mOBFSz0o2KmFlUJEYRakRpE'
-    if (!isRegisterForm) {
+    if (isLoginForm) {
       apiURL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyALSX-3oHI0mOBFSz0o2KmFlUJEYRakRpE'
     }
 
@@ -25,6 +25,7 @@ export const auth = (email, password, isRegisterForm) => {
         const idToken = response.data.idToken
         const userId = response.data.localId
         dispatch(authSuccess(idToken, userId))
+        dispatch(checkAuthTimeout(response.data.expiresIn))
       })
       .catch(error => {
         dispatch(authFail(error.response.data.error))
@@ -44,5 +45,19 @@ export const authFail = (error) => {
   return {
     type: actions.AUTH_FAIL,
     error: error
+  }
+}
+
+export const checkAuthTimeout = (expirationTime) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout())
+    }, expirationTime * 1000)
+  }
+}
+
+export const logout = () => {
+  return {
+    type: actions.AUTH_LOGOUT
   }
 }
