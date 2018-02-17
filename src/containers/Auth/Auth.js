@@ -4,6 +4,7 @@ import * as actions from '../../store/actions/index'
 import classes from './Auth.css'
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 class Auth extends Component {
   state = {
@@ -95,7 +96,7 @@ class Auth extends Component {
   switchAuthHandler = (event) => {
     event.preventDefault()
     this.setState(prevState => {
-      return {isRegisterForm: !prevState.isRegisterForm}
+      return { isRegisterForm: !prevState.isRegisterForm }
     })
   }
 
@@ -108,7 +109,7 @@ class Auth extends Component {
       })
     }
 
-    const form = formElementsArray.map(element => (
+    let form = formElementsArray.map(element => (
       <Input
         key={element.id}
         elementType={element.config.elementType}
@@ -120,19 +121,38 @@ class Auth extends Component {
         changed={(event) => this.inputChangedHandler(event, element.id)} />
     ))
 
+    let formControls = (
+      <div>
+        <Button btnType="Success">Submit</Button>
+        <Button
+          btnType="Danger"
+          clicked={this.switchAuthHandler}>
+          Switch to {this.state.isRegisterForm ? 'Login' : 'Register'}
+        </Button>
+      </div>
+    )
+
+    let error = null
+
+    if (this.props.error) {
+      error = <p className={classes.Error}>{this.props.error.message}</p>
+    }
+
+    if (this.props.loading) {
+      form = <Spinner />
+      formControls = null
+      error = null
+    }
+
     return (
       <div className={classes.Auth}>
         <h1 className={classes.Title}>
-          {this.state.isRegisterForm ? 'Register': 'Login'}
+          {this.state.isRegisterForm ? 'Register' : 'Login'}
         </h1>
         <form onSubmit={this.submitHandler}>
           {form}
-          <Button btnType="Success">Submit</Button>
-          <Button
-            btnType="Danger"
-            clicked={this.switchAuthHandler}>
-            Switch to {this.state.isRegisterForm ? 'Login': 'Register'}
-          </Button>
+          {formControls}
+          {error}
         </form>
       </div>
     )

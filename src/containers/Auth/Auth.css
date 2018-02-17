@@ -13,6 +13,11 @@
   font-weight: bold;
 }
 
+.Error {
+  color: red;
+  font-weight: bold;
+}
+
 @media (min-width: 600px) {
   .Auth {
     width: 500px;
