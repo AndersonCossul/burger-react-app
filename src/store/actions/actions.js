@@ -3,6 +3,7 @@ export const ADD_INGREDIENT           = 'ADD_INGREDIENT'
 export const REMOVE_INGREDIENT        = 'REMOVE_INGREDIENT'
 export const SET_INGREDIENTS          = 'SET_INGREDIENTS'
 export const FETCH_INGREDIENTS_FAILED = 'FECTH_INGREDIENTS_FAILED'
+export const RESET_TOTAL_PRICE        = 'RESET_TOTAL_PRICE'
 
 // ORDERS
 export const PURCHASE_INIT            = 'PURCHASE_INIT' // will be called when entering the checkout page
