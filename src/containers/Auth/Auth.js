@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
 import classes from './Auth.css'
@@ -144,8 +145,14 @@ class Auth extends Component {
       error = null
     }
 
+    let alreadyLoggedInRedirect = null
+    if (this.props.isAlreadyLoggedIn) {
+      alreadyLoggedInRedirect = <Redirect to="/" />
+    }
+
     return (
       <div className={classes.Auth}>
+        {alreadyLoggedInRedirect}
         <h1 className={classes.Title}>
           {this.state.isLoginForm ? 'Login' : 'Register'}
         </h1>
@@ -161,6 +168,7 @@ class Auth extends Component {
 
 const mapStateToProps = state => {
   return {
+    isAlreadyLoggedIn: state.auth.token !== null,
     loading: state.auth.loading,
     error: state.auth.error
   }
