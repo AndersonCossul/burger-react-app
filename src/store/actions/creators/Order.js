@@ -1,6 +1,12 @@
 import * as actions from '../actions'
 import axios from '../../../axios-orders'
 
+export const purchaseInit = () => {
+  return {
+    type: actions.PURCHASE_INIT
+  }
+}
+
 export const purchaseBurgerStart = () => {
   return {
     type: actions.PURCHASE_BURGER_START
@@ -12,7 +18,7 @@ export const purchaseBurger = (order) => {
     dispatch(purchaseBurgerStart()) // will dispatch action to start the proccess and set loading to true
     axios.post('/orders.json', order)
       .then(response => {
-        dispatch(purchaseBurgerSuccess(response.data, order))
+        dispatch(purchaseBurgerSuccess(response.data.name, order))
       })
       .catch(error => {
         dispatch(purchaseBurgerFail(error))

@@ -95,7 +95,7 @@ class ContactData extends Component {
         },
         formIsValid: false
     }
-
+    
     orderHandler = ( event ) => {
         event.preventDefault()
         const formData = {}

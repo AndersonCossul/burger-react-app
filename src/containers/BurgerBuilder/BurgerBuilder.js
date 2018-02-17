@@ -39,6 +39,8 @@ class BurgerBuilder extends Component {
 	}
 
 	purchaseContinueHandler = () => {
+		// first dispatch init purchase so the checkout page can be accessed, otherwise a redirect back would take place
+		this.props.onInitPurchase()
 		this.props.history.push('/checkout')
 	}
 
@@ -54,7 +56,7 @@ class BurgerBuilder extends Component {
 
 		// nothing and spinning by default
 		let orderSummary = null
-		let burger = this.props.error ? <p>Props couldn't be fetched!</p> : <Spinner/>
+		let burger = this.props.error ? <p>Ingredients couldn't be fetched!</p> : <Spinner/>
 
 		if (this.props.ingredients) {
 			burger = (
@@ -101,6 +103,7 @@ const mapDispatchToProps = dispatch => {
 		onInitIngredients: () => dispatch(actions.initIngredients()),
 		onIngredientAdded: (ingredientName) => dispatch(actions.addIngredient(ingredientName)),
 		onIngredientRemoved: (ingredientName) => dispatch(actions.removeIngredient(ingredientName)),
+		onInitPurchase: () => dispatch(actions.purchaseInit())
 	}
 }
 
