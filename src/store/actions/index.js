@@ -15,5 +15,6 @@ export {
 } from './creators/Order'
 
 export {
-  auth
+  auth,
+  logout
 } from './creators/Auth'
