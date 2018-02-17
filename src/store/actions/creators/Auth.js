@@ -22,20 +22,21 @@ export const auth = (email, password, isRegisterForm) => {
 
     axios.post(apiURL, authData)
       .then(response => {
-        console.log(response)
-        dispatch(authSuccess(response.data))
+        const idToken = response.data.idToken
+        const userId = response.data.localId
+        dispatch(authSuccess(idToken, userId))
       })
       .catch(error => {
-        console.log(error)
         dispatch(authFail(error))
       })
   }
 }
 
-export const authSuccess = (authData) => {
+export const authSuccess = (idToken, userId) => {
   return {
     type: actions.AUTH_SUCCESS,
-    authData: authData
+    idToken: idToken,
+    userId: userId
   }
 }
 
