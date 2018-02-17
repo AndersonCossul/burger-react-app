@@ -10,8 +10,7 @@ export const fetchOrdersStart = () => {
 export const fetchOrders = (token) => {
   return dispatch => {
     dispatch(fetchOrdersStart())
-    // axios.get('/orders.json?auth=' + token)
-    axios.get('/orders.json')
+    axios.get('/orders.json?auth=' + token)
       .then(response => {
         const formattedOrders = []
         if (response) {
@@ -53,7 +52,7 @@ export const deleteOrderStart = () => {
 export const deleteOrder = (orderId, token) => {
   return dispatch => {
     dispatch(deleteOrderStart())
-    axios.delete('/orders/' + orderId + '.json')
+    axios.delete('/orders/' + orderId + '.json?auth=' + token)
       .then(response => {
         dispatch(deleteOrderSuccess(orderId))
       })
