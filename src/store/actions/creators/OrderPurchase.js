@@ -18,8 +18,7 @@ export const purchaseBurger = (order, token) => {
     dispatch(purchaseBurgerStart()) // will dispatch action to start the proccess and set loading to true
     axios.post('/orders.json?auth=' + token, order)
       .then(response => {
-        dispatch(resetIngredients())
-        dispatch(resetTotalPrice())
+        dispatch(resetBurger())
         dispatch(purchaseBurgerSuccess(response.data.name, order))
       })
       .catch(error => {
@@ -43,14 +42,8 @@ export const purchaseBurgerFail = (error) => {
   }
 }
 
-export const resetTotalPrice = () => {
+export const resetBurger = () => {
   return {
-    type: actions.RESET_TOTAL_PRICE
-  }
-}
-
-export const resetIngredients = () => {
-  return {
-    type: actions.RESET_INGREDIENTS
+    type: actions.RESET_BURGER
   }
 }
