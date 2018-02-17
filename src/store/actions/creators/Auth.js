@@ -7,7 +7,7 @@ export const authStart = () => {
   }
 }
 
-export const auth = (email, password) => {
+export const auth = (email, password, isRegisterForm) => {
   return dispatch => {
     dispatch(authStart())
     const authData = {
@@ -15,7 +15,11 @@ export const auth = (email, password) => {
       password: password,
       returnSecureToken: true
     }
-    const apiURL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyALSX-3oHI0mOBFSz0o2KmFlUJEYRakRpE'
+    let apiURL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyALSX-3oHI0mOBFSz0o2KmFlUJEYRakRpE'
+    if (!isRegisterForm) {
+      apiURL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyALSX-3oHI0mOBFSz0o2KmFlUJEYRakRpE'
+    }
+
     axios.post(apiURL, authData)
       .then(response => {
         console.log(response)

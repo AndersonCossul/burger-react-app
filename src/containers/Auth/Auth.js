@@ -36,7 +36,8 @@ class Auth extends Component {
         valid: false,
         touched: false
       }
-    }
+    },
+    isRegisterForm: true
   }
 
   checkValidity(value, rules) {
@@ -88,7 +89,14 @@ class Auth extends Component {
     event.preventDefault()
     const email = this.state.controls.email.value
     const password = this.state.controls.password.value
-    this.props.auth(email, password)
+    this.props.auth(email, password, this.state.isRegisterForm)
+  }
+
+  switchAuthHandler = (event) => {
+    event.preventDefault()
+    this.setState(prevState => {
+      return {isRegisterForm: !prevState.isRegisterForm}
+    })
   }
 
   render() {
@@ -114,10 +122,17 @@ class Auth extends Component {
 
     return (
       <div className={classes.Auth}>
-        <h1 className={classes.Title}>Sign Up</h1>
+        <h1 className={classes.Title}>
+          {this.state.isRegisterForm ? 'Register': 'Login'}
+        </h1>
         <form onSubmit={this.submitHandler}>
           {form}
-          <Button btnType="Success">Sign Up</Button>
+          <Button btnType="Success">Submit</Button>
+          <Button
+            btnType="Danger"
+            clicked={this.switchAuthHandler}>
+            Switch to {this.state.isRegisterForm ? 'Login': 'Register'}
+          </Button>
         </form>
       </div>
     )
@@ -133,7 +148,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    auth: (email, password) => dispatch(actions.auth(email, password))
+    auth: (email, password, isRegisterForm) => dispatch(actions.auth(email, password, isRegisterForm))
   }
 }
 
