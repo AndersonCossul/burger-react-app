@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import burgerBuilderReducer from './store/reducers/burgerBuilder'
 import orderPurchaseReducer from './store/reducers/orderPurchase'
-import orderReducer from './store/reducers/orderPurchase'
+import orderReducer from './store/reducers/order'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // redux devtools
 

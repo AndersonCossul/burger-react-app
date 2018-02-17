@@ -1,7 +1,7 @@
 import * as actions from '../actions/actions'
 
 const initialState = {
-  orders: [],
+  orders: null,
   loading: false,
   error: null
 }
