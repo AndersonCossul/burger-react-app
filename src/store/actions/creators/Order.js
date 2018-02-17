@@ -10,7 +10,8 @@ export const fetchOrdersStart = () => {
 export const fetchOrders = (token) => {
   return dispatch => {
     dispatch(fetchOrdersStart())
-    axios.get('/orders.json?auth=' + token)
+    // axios.get('/orders.json?auth=' + token)
+    axios.get('/orders.json')
       .then(response => {
         const formattedOrders = []
         if (response) {
@@ -39,6 +40,39 @@ export const fetchOrdersSuccess = (orders) => {
 export const fetchOrdersFail = (error) => {
   return {
     type: actions.FETCH_ORDERS_FAIL,
+    error: error
+  }
+}
+
+export const deleteOrderStart = () => {
+  return {
+    type: actions.DELETE_ORDER_START
+  }
+}
+
+export const deleteOrder = (orderId, token) => {
+  return dispatch => {
+    dispatch(deleteOrderStart())
+    axios.delete('/orders/' + orderId + '.json')
+      .then(response => {
+        dispatch(deleteOrderSuccess(orderId))
+      })
+      .catch(error => {
+        dispatch(deleteOrderFail(error))
+      })
+  }
+}
+
+export const deleteOrderSuccess = (orderId) => {
+  return {
+    type: actions.DELETE_ORDER_SUCCESS,
+    orderId: orderId
+  }
+}
+
+export const deleteOrderFail = (error) => {
+  return {
+    type: actions.DELETE_ORDER_FAIL,
     error: error
   }
 }

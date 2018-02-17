@@ -16,6 +16,9 @@ export const PURCHASE_BURGER_FAIL     = 'PURCHASE_BURGER_FAIL'
 export const FETCH_ORDERS_START        = 'FETCH_ORDERS_START'
 export const FETCH_ORDERS_SUCCESS      = 'FETCH_ORDERS_SUCCESS'
 export const FETCH_ORDERS_FAIL         = 'FETCH_ORDERS_FAIL'
+export const DELETE_ORDER_START        = 'DELETE_ORDER_START'
+export const DELETE_ORDER_SUCCESS      = 'DELETE_ORDER_SUCCESS'
+export const DELETE_ORDER_FAIL         = 'DELETE_ORDER_FAIL'
 
 // AUTH
 export const AUTH_START                = 'AUTH_START'

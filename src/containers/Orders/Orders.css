@@ -1,0 +1,14 @@
+.RefreshBlock {
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.RefreshBlock button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}

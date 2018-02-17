@@ -10,7 +10,8 @@ export {
 } from './creators/OrderPurchase'
 
 export {
-  fetchOrders
+  fetchOrders,
+  deleteOrder
 } from './creators/Order'
 
 export {

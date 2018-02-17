@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classes from './Orders.css'
 import Order from '../../components/Order/Order'
 import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
@@ -11,8 +12,12 @@ class Orders extends Component {
     this.props.fetchOrders(this.props.token)
   }
 
+  onDeleteOrder = (orderId) => {
+    this.props.deleteOrder(orderId, this.props.token)
+  }
+
   render() {
-    let orders = <Spinner />
+    let orders = null
 
     if (this.props.error) {
       orders = <p>{this.props.error}</p>
@@ -26,28 +31,44 @@ class Orders extends Component {
           <Order
             key={order.id}
             ingredients={order.ingredients}
-            price={order.price} />
+            price={order.price}
+            deleted={() => this.onDeleteOrder(order.id)}
+            loading={this.props.loading} />
         ))
       }
     }
 
-    return orders
-  }
-}
+    if (this.props.loading) {
+      orders = <Spinner />
+    }
 
+    return (
+      <div>
+        <div className={classes.RefreshBlock}>
+          <button>
+            <img src="https://png.icons8.com/metro/26/000000/recurring-appointment.png" alt="Refresh"/>
+          </button>
+        </div>
+          {orders}
+        </div>
+        )
+      }
+    }
+    
 const mapStateToProps = state => {
   return {
-    orders: state.order.orders,
-    loading: state.order.loading,
-    error: state.order.error,
-    token: state.auth.token
-  }
-}
-
+          orders: state.order.orders,
+        loading: state.order.loading,
+        error: state.order.error,
+        token: state.auth.token
+      }
+    }
+    
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: (token) => dispatch(actions.fetchOrders(token))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios))
+          fetchOrders: (token) => dispatch(actions.fetchOrders(token)),
+        deleteOrder: (orderId, token) => dispatch(actions.deleteOrder(orderId, token))
+      }
+    }
+    
+    export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios))
