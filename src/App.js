@@ -3,6 +3,7 @@ import Layout from './hoc/Layout/Layout'
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
 import Checkout from './containers/Checkout/Checkout'
 import Orders from './containers/Orders/Orders'
+import Auth from './containers/Auth/Auth'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
           <Route path="/" exact component={BurgerBuilder} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/orders" exact component={Orders} />
+          <Route path="/login" exact component={Auth} />
         </Layout>
       </BrowserRouter>
     );
