@@ -9,6 +9,10 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 
 class Orders extends Component {
   componentDidMount() {
+    this.onFetchOrders()
+  }
+
+  onFetchOrders = () => {
     this.props.fetchOrders(this.props.token)
   }
 
@@ -45,30 +49,30 @@ class Orders extends Component {
     return (
       <div>
         <div className={classes.RefreshBlock}>
-          <button>
-            <img src="https://png.icons8.com/metro/26/000000/recurring-appointment.png" alt="Refresh"/>
+          <button onClick={this.onFetchOrders}>
+            <img src="https://png.icons8.com/metro/26/000000/recurring-appointment.png" alt="Refresh" />
           </button>
         </div>
-          {orders}
-        </div>
-        )
-      }
-    }
-    
+        {orders}
+      </div>
+    )
+  }
+}
+
 const mapStateToProps = state => {
   return {
-          orders: state.order.orders,
-        loading: state.order.loading,
-        error: state.order.error,
-        token: state.auth.token
-      }
-    }
-    
+    orders: state.order.orders,
+    loading: state.order.loading,
+    error: state.order.error,
+    token: state.auth.token
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
-          fetchOrders: (token) => dispatch(actions.fetchOrders(token)),
-        deleteOrder: (orderId, token) => dispatch(actions.deleteOrder(orderId, token))
-      }
-    }
-    
-    export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios))
+    fetchOrders: (token) => dispatch(actions.fetchOrders(token)),
+    deleteOrder: (orderId, token) => dispatch(actions.deleteOrder(orderId, token))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios))

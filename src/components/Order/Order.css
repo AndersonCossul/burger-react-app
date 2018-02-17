@@ -19,9 +19,9 @@
 
 .Delete {
   position: absolute;
-  top: -10px;
+  top: -5px;
   right: -10px;
-  background-color: red;
+  background-color: #703b09;
   font-weight: bold;
   color: #fff;
   padding: 5px 8px;
@@ -33,5 +33,5 @@
 }
 
 .Delete:hover {
-  background-color: salmon;
+  background-color: #99703F;
 }
